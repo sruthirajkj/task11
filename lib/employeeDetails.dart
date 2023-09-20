@@ -11,15 +11,15 @@ class EmployeeDetails extends StatefulWidget {
 }
 
 class _EmployeeDetailsState extends State<EmployeeDetails> {
-  Future<List<dynamic>?> employee() async {
+  Future<dynamic> employee() async {
     final url = "https://dummy.restapiexample.com/api/v1/employees";
     var response = await get(Uri.parse(url));
     if (response.statusCode == 200) {
       var body = jsonDecode(response.body);
       print(response.body);
-      if (bool is List){
+      //if (bool is List){
       return body;}
-    }
+   // }
   }
 
   @override
@@ -33,16 +33,17 @@ class _EmployeeDetailsState extends State<EmployeeDetails> {
                 return Center(child: CircularProgressIndicator());
               }
               if (snapshot.hasData) {
+                //final data=snapshot.data!;
                 return Expanded(
                   child: ListView.builder(
-                      itemCount: snapshot.data!["data"].length,
+                      itemCount: snapshot.data!.length,
                       itemBuilder: (context, index) {
                         return ListTile(
                             title: Text(snapshot.data!["data"][index]["id"].toString()),
                             subtitle: Column(
                               children: [Text(snapshot.data!["data"][index]["employee_name"].toString()),
-                                Text(snapshot.data![index]["data"]["employee_salary"].toString()),
-                                Text(snapshot.data![index]["data"]["employee_age"].toString())],
+                                Text(snapshot.data!["data"][index]["employee_salary"].toString()),
+                                Text(snapshot.data!["data"][index]["employee_age"].toString())],
                             ));
                       }),
                 );
